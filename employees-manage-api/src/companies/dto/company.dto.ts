@@ -1,5 +1,5 @@
 export type CompanyDTO = {
-  id: string;
+  id?: string;
   industry: string;
   sector: string;
   category: string;
