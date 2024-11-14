@@ -23,7 +23,7 @@ import { Company } from '../entities/company.entity';
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
-  @Post()
+  @Post("/company")
   @ApiOperation({ summary: 'Create a new company' })
   @ApiResponse({ status: 201, description: 'Company created successfully' })
   async create(
@@ -32,7 +32,7 @@ export class CompaniesController {
     return this.companiesService.create(createCompanyDto);
   }
 
-  @Get()
+  @Get("/company")
   @ApiOperation({ summary: 'Get all companies with filtering and pagination' })
   @ApiResponse({ status: 200, description: 'List of companies' })
   async findAll(@Query(ValidationPipe) filterDto: FilterCompanyDto) {
