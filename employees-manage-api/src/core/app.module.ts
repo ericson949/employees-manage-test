@@ -3,7 +3,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { I_USER_REPOSITORY } from '../users/ports/user-repository.interface';
 import { Authenticator } from '../users/services/authenticator';
 import { UserModule } from '../users/user.module';
-import { WebinaireModule } from '../webinaires/webinaire.module';
+// import { WebinaireModule } from '../webinaires/webinaire.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthGuard } from './auth.guard';
@@ -24,7 +24,7 @@ import { CompanyEntity } from 'src/companies/entities/company.entity';
       entities: [CompanyEntity],
       synchronize: true,
     }),
-    WebinaireModule,
+    // WebinaireModule,
     CompaniesModule,
     UserModule,
     CommonModule,
