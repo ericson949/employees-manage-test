@@ -1,19 +1,12 @@
-import { CqrsModule } from '@nestjs/cqrs';
-import { CompaniesController } from './controllers/companies.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommonModule } from 'src/core/common.module';
-import { UserModule } from 'src/users/user.module';
 import { Module } from '@nestjs/common';
-import { CompanyEntity } from './entities/company.entity';
+import { CompaniesController } from './controller/company.controller';
+import { Company } from './entities/company.entity';
+import { CompaniesService } from './services/company.sevice';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([CompanyEntity]),
-    CqrsModule,
-    CommonModule,
-    UserModule,
-    TypeOrmModule.forRoot(),
-  ],
+  imports: [TypeOrmModule.forFeature([Company])],
   controllers: [CompaniesController],
+  providers: [CompaniesService],
 })
 export class CompaniesModule {}

@@ -1,19 +1,29 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class CompanyEntity {
+export class Company {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
-  industry: string;
+  name: string;
 
   @Column()
-  sector: string;
+  address: string;
 
-  @Column()
-  category: string;
+  @Column({ nullable: true })
+  phone: string;
 
-  @Column()
-  year: number;
+  @Column({ nullable: true })
+  email: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 }
