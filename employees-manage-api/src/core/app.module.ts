@@ -1,9 +1,5 @@
 import { Module } from '@nestjs/common';
-
 import { APP_GUARD } from '@nestjs/core';
-import { MongooseModule } from '@nestjs/mongoose';
-
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { I_USER_REPOSITORY } from '../users/ports/user-repository.interface';
 import { Authenticator } from '../users/services/authenticator';
 import { UserModule } from '../users/user.module';
@@ -12,17 +8,24 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthGuard } from './auth.guard';
 import { CommonModule } from './common.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CompaniesModule } from 'src/companies/companies.module';
+import { CompanyEntity } from 'src/companies/entities/company.entity';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
-        uri: config.get<string>('DATABASE_URL'),
-      }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'employees-manage',
+      entities: [CompanyEntity],
+      synchronize: true,
     }),
     WebinaireModule,
+    CompaniesModule,
     UserModule,
     CommonModule,
   ],

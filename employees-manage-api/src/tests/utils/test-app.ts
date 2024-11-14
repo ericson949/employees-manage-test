@@ -54,21 +54,21 @@ export class TestApp {
 
   private async clearDatabase() {
     await this.app
-      .get<Model<MongoUser.SchemaClass>>(
-        getModelToken(MongoUser.CollectionName),
-      )
+      .get<
+        Model<MongoUser.SchemaClass>
+      >(getModelToken(MongoUser.CollectionName))
       .deleteMany({});
 
     await this.app
-      .get<Model<MongoWebinaire.SchemaClass>>(
-        getModelToken(MongoWebinaire.CollectionName),
-      )
+      .get<
+        Model<MongoWebinaire.SchemaClass>
+      >(getModelToken(MongoWebinaire.CollectionName))
       .deleteMany({});
 
     await this.app
-      .get<Model<MongoParticipation.SchemaClass>>(
-        getModelToken(MongoParticipation.CollectionName),
-      )
+      .get<
+        Model<MongoParticipation.SchemaClass>
+      >(getModelToken(MongoParticipation.CollectionName))
       .deleteMany({});
   }
 }
