@@ -31,4 +31,9 @@ export class CreateCompanyDto {
   @IsOptional()
   @IsEmail()
   readonly email?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  readonly fileName?: string;
 }

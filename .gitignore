@@ -72,3 +72,8 @@ logs
 # Tests
 **/coverage
 **/.nyc_output
+
+/employees-manage-api/uploads/*
+/employees-manage-api/.env
+**//*.pem
+**//*.env

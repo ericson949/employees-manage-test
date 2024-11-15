@@ -9,6 +9,8 @@ import {
   Query,
   ParseIntPipe,
   ValidationPipe,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
@@ -17,19 +19,30 @@ import { CreateCompanyDto } from '../dtos/create-company.dto';
 import { FilterCompanyDto } from '../dtos/filter-company.dto';
 import { UpdateCompanyDto } from '../dtos/update-company.dto';
 import { Company } from '../entities/company.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FileUploadService } from '../services/file-upload.service';
 
 @ApiTags('companies')
 @Controller('companies')
 export class CompaniesController {
-  constructor(private readonly companiesService: CompaniesService) {}
+  constructor(
+    private readonly companiesService: CompaniesService,
+    private readonly fileUploadService: FileUploadService,
+  ) {}
 
   @Post('/')
+  @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({ summary: 'Create a new company' })
   @ApiResponse({ status: 201, description: 'Company created successfully' })
   async create(
     @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<Company> {
-    return this.companiesService.create(createCompanyDto);
+    const response = this.fileUploadService.handleFileUpload(file);
+    return this.companiesService.create({
+      ...createCompanyDto,
+      fileName: response.filePath,
+    });
   }
 
   @Get('/')

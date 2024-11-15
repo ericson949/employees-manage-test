@@ -16,6 +16,9 @@ export class Company {
   phone: string;
 
   @Column({ nullable: true })
+  fileName: string;
+
+  @Column({ nullable: true })
   email: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
