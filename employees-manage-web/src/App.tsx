@@ -38,8 +38,12 @@ import {
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { BACK_API_URL } from "./shared/utils";
+import { CompaniesRoutes } from "./companies/infra/routes/routes";
+import ListCompanies from "./companies/infra/ui/index/ListCompanies";
 
 function App() {
+  console.log('ert7878', BACK_API_URL)
   return (
     <BrowserRouter>
       <RefineKbarProvider>
@@ -49,11 +53,22 @@ function App() {
           <RefineSnackbarProvider>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+                dataProvider={dataProvider(BACK_API_URL)}
                 notificationProvider={notificationProvider}
                 authProvider={authProvider}
                 routerProvider={routerBindings}
                 resources={[
+                   {
+                    name: "companies",
+                    identifier: "entreprises",
+                    list: "/entreprises",
+                    create: "/entreprises/create",
+                    edit: "/entreprises/edit/:id",
+                    show: "/entreprises/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
                   {
                     name: "blog_posts",
                     identifier: "entreprises",
@@ -114,7 +129,7 @@ function App() {
                       element={<NavigateToResource resource="blog_posts" />}
                     />
                     <Route path="/entreprises">
-                      <Route index element={<BlogPostList />} />
+                      <Route index element={<ListCompanies />} />
                       <Route path="create" element={<BlogPostCreate />} />
                       <Route path="edit/:id" element={<BlogPostEdit />} />
                       <Route path="show/:id" element={<BlogPostShow />} />
